@@ -1,7 +1,5 @@
 const { validationResult } = require("express-validator");
 const path = require("path");
-const fs = require("fs");
-const bcrypt = require("bcryptjs");
 
 const {Users} = require('../database/models')
 //const universalModel = require("../model/universalModel");
@@ -9,16 +7,9 @@ const {Users} = require('../database/models')
 
 const userController = {
 
-    // 1. Mostrar form register
-    register: (req,res) =>{
-        res.render("users/register",{
-
-            title: "Register"
-        })
-
-        
-    },
-
+    mostrarUsers: async (req,res)=>{},
+    mostrarUser: async (req,res)=>{},    
+    
     // 2. Procesar registros
     processRegister: async (req, res) => {
         try {
@@ -88,15 +79,6 @@ const userController = {
         
     },
 
-    // 3. Mostrar form login
-    login: (req,res) =>{
-        res.render("users/login",
-        {
-            title: "Login"
-        }
-        )
-    },
-
     // 4. Procesar login
     processLogin: async(req, res) => {
         try {
@@ -153,22 +135,6 @@ const userController = {
         }
         
   },
-
-  // 5. Vista de usuario logueado, falta pagina y url
-  profile: (req, res) => {
-      return res.render('users/profile',
-      {
-          title: "Profile"
-      });
-  },
-    // 6. Logout user
-    logout: (req, res) => {
-        res.clearCookie('userEmail');
-        req.session.destroy();
-        return res.redirect('/');
-    }
-    
-
 }
 
 module.exports = userController
