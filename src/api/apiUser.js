@@ -1,140 +1,62 @@
-const { validationResult } = require("express-validator");
 const path = require("path");
 
 const {Users} = require('../database/models')
 //const universalModel = require("../model/universalModel");
 //const userModel = universalModel("users");
 
-const userController = {
+const apiUser = {
 
-    mostrarUsers: async (req,res)=>{},
-    mostrarUser: async (req,res)=>{},    
-    
-    // 2. Procesar registros
-    processRegister: async (req, res) => {
+    mostrarUsers: async (req,res)=>{
         try {
-            const { file } = req;
-            
-            const errores = validationResult(req);
-            if(!errores.isEmpty()){
-                if(file){
-                    const filePath = path.join(__dirname, `../../public/images/users/${file.filename}`);
-                    fs.unlinkSync(filePath);
-                }
-    
-                console.log(req.body);
-    
-                delete req.body.password;
-                delete req.body.checkpassword;
-    
-                console.log(req.body);
-    
-                return res.render("users/register", {
-                    errors: errores.mapped(),
-                    oldData: req.body,
-                    title: "Register"
-                
-                })
+            const allUsers = await Users.findAll();
+            let meta = {
+                status: 200,
+                url: '/api/apiUser',
+                count: allUsers.length
             }
-            
-            const existeEmail = await Users.findOne({where:{'email' : req.body.email}});
-    
-            if(existeEmail){
-                if(file){
-                    const filePath = path.join(__dirname, `../../public/images/users/${file.filename}`);
-                    fs.unlinkSync(filePath);
-                }
-    
-                let error = {
-                    email: {
-                        msg: "Este email ya está registrado"
-                    }
-                }
-                delete req.body.password;
-                delete req.body.checkpassword;
-    
-                return res.render("users/register", {
-                    errors: error,
-                    oldData: req.body,
-                    title: "Register"
-                })
-            }
-    
-            const newUsuario = {
-                ...req.body,
-                password: bcrypt.hashSync(req.body.password, 10),
-                checkpassword: bcrypt.hashSync(req.body.checkpassword, 10),
-                image: file ? file.filename : ["default-user.svg"]
-            };
-    
-            await Users.create({
-                ...newUsuario
-            });
-    
-            return res.redirect("login");
-        } catch (error) {
-            res.json(error.message);
-        }
 
-        
+            let users = []
+
+            allUsers.forEach( user =>{
+                users.push({
+                    id: user.id,
+                    name: user.firstname + ' ' + user.lastname,
+                    email: user.email,
+                    detail: `${req.headers.host}/api/users/${user.id}`
+                })
+            })
+
+            let respuesta = {meta, data: users}
+            return res.json(respuesta)
+
+        } catch (error) {
+            res.json({error: error.message});
+        }
     },
-
-    // 4. Procesar login
-    processLogin: async(req, res) => {
+    mostrarUser: async (req,res)=>{
         try {
-            const errores = validationResult(req)
-      
-            if(!errores.isEmpty()){
-                return res.render("users/login", {
-                    errors: errores.mapped(),
-                    oldData: req.body,
-                    title: "Login"
-                })
+            //const { file } = req;
+            //const filePath = path.join(__dirname, `../../public/images/users/${file.filename}`);            
+            const id = +req.params.id;
+            const user = await Users.findOne({where:{'id' : id}});
+            let meta = {
+                status: 200,
+                url: '/api/apiUser' 
             }
-            const usuarioRegistrado = await Users.findOne({where:{'email' : req.body.email}});
-            console.log(usuarioRegistrado)
-            if(!usuarioRegistrado){
-                const error = {
-                    email: {
-                        msg: "Este email no se encuentra en nuestra base de datos"
-                    }
-                }
-                return res.render("users/login", {
-                    errors: error,
-                    oldData: req.body,
-                    title: "Login"
-                })
+            let data = {
+                id: user.id,
+                name: user.firstname + ' ' + user.lastname,
+                email: user.email,
+                telephone: user.telephone,
+                //image: filePath ni idea
             }
-      
-            const passwordCoincide = bcrypt.compareSync(req.body.password, usuarioRegistrado.password );
-      
-            if(!passwordCoincide){
-                const error = {
-                    password: {
-                        msg: "Las credenciales son inválidas"
-                    }
-                }
-                delete req.body.password;
-                return res.render("users/login", {
-                    errors: error,
-                    oldData: req.body,
-                    title: "Login"
-                })
-            }
-      
-            delete usuarioRegistrado.password;
-            req.session.usuarioLogueado = usuarioRegistrado;
-            
-            if(req.body.rememberUser){
-                res.cookie("userEmail", req.body.email, { maxAge: 60 * 1000 * 60 * 24 * 30 })
-            }
-            return res.redirect("/users/profile");
-            
+
+            let respuesta = {meta, data}
+            return res.json(respuesta)
         } catch (error) {
-            res.json(error.message);
+            res.json({error: error.message});
         }
-        
-  },
+    }
 }
 
-module.exports = userController
+module.exports = apiUser

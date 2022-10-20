@@ -4,7 +4,7 @@ const path = require('path');
 //const universalModel = require('../model/universalModel'); 
 //const productModel = universalModel('products');
 
-const productController = {
+const apiProduct = {
 
     mostrarProductos: async (req,res) =>{
         try {
@@ -36,7 +36,7 @@ const productController = {
                     description: product.description,
                     category: product.id_category,
                     color: product.id_color,
-                    detail: `${req.headers.host}/products/${product.id}`
+                    detail: `${req.headers.host}/api/products/${product.id}`
                 })
             })
 
@@ -79,4 +79,4 @@ const productController = {
     },
 }
 
-module.exports = productController
+module.exports = apiProduct

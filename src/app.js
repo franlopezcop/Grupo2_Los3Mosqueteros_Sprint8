@@ -12,11 +12,11 @@ const apiMainRouter = require("./routes/apiMainRouter.js")
 app.use("/" ,apiMainRouter)
 
 const apiUserRouter = require("./routes/apiUserRouter.js")
-app.use("/users", apiUserRouter)
+app.use("/api/users", apiUserRouter)
 
 // Products
 const apiProductRouter = require("./routes/apiProductRouter.js")
-app.use("/products", apiProductRouter)
+app.use("/api/products", apiProductRouter)
 
 const port = process.env.PORT || 3030;
 
