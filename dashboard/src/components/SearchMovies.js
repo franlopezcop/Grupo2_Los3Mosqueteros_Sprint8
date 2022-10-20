@@ -1,40 +1,46 @@
+import { useEffect, useRef, useState} from "react";
 import noPoster from "../assets/images/no-poster.png";
-import { useState, useEffect, useRef } from 'react'
-
 
 function SearchMovies() {
-
   // Credenciales de API
-  const [movies, setMovies] = useState([])
-  const [keyword, setKeyword] = useState('action')
-  
-  const apiKey = "dce60ae3"; // Ingresa la API key que llego a tu mail 
-  const peliculaBuscada = useRef()
+  const apiKey = "a93897b9"; // Ingresa la API key que llego a tu mail 
 
-  function handlePeliculaBuscada(e){
+  // keyword será la palabra por la que queremos buscar la / las películas
+  // const keyword = "comedy";
+
+  // Array de Peliculas hardcodeado que reemplazaremos por lo que devuelva la OMDb API
+  const [movies, setMovies] = useState([]);
+  const [keyword, setKeyword] = useState("comedy");
+
+  useEffect(() => {
+    let url = `http://www.omdbapi.com/?s=${keyword}&apikey=${apiKey}`
+    fetch(url)
+      .then( response => response.json())
+      .then( data => setMovies(data.Search))
+
+  }, [keyword])
+
+  const search = useRef();
+
+  function handleSubmit (e) {
     e.preventDefault();
-    let value = peliculaBuscada.current.value
+    let value = search.current.value;
     setKeyword(value)
-  }
-  console.log(peliculaBuscada.current.value) //)
-
-  useEffect(() => {
-    const llamadoApi = async () => {
-      const response = await fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=${apiKey}`)
-      const movies = await response.json()  
-      setMovies(movies.Search)
-    }
-    llamadoApi()
-  }, []) 
-
-  useEffect(() => {
-    const llamadoApi = async () => {
-      const response = await fetch(`http://www.omdbapi.com/?s=${keyword}&apikey=${apiKey}`)
-      const movies = await response.json()  
-      setMovies(movies.Search)
-    }
-    llamadoApi()
-  }, [keyword]) 
+  };
+  
+  // const movies = [
+  //   {
+  //     Title: "Parchís",
+  //     Year: "1983",
+  //     Poster:
+  //       "https://m.media-amazon.com/images/M/MV5BYTgxNjg2MTAtYjhmYS00NjQwLTk1YTMtNmZmOTMyNTAwZWUwXkEyXkFqcGdeQXVyMTY5MDE5NA@@._V1_SX300.jpg",
+  //   },
+  //   {
+  //     Title: "Brigada en acción",
+  //     Year: "1977",
+  //     Poster: "N/A",
+  //   },
+  // ];
 
   return (
     <div className="container-fluid">
@@ -44,12 +50,12 @@ function SearchMovies() {
           <div className="row my-4">
             <div className="col-12 col-md-6">
               {/* Buscador de Películas */}
-              <form>  {/* A esta etiqueta form debemos agregar el onSubmit con una funcion dentro */}
+              <form onSubmit={handleSubmit}>  {/* A esta etiqueta form debemos agregar el onSubmit con una funcion dentro */}
                 <div className="form-group">
                   <label htmlFor="">Buscar por título:</label>
-                  <input type="text" className="form-control" ref={peliculaBuscada}/>
+                  <input ref={search} type="text" className="form-control" />
                 </div>
-                <button className="btn btn-info" onSubmit={(e) =>handlePeliculaBuscada()}>Search</button>
+                <button className="btn btn-info">Search</button>
               </form>
             </div>
           </div>
