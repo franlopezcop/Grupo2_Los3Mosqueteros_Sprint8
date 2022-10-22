@@ -1,4 +1,4 @@
-function LastMovieInDb() {
+function CategoriesInDb() {
   const genres = [
     "Acción",
     "Animación",
@@ -36,4 +36,4 @@ function LastMovieInDb() {
   );
 }
 
-export default LastMovieInDb;
+export default CategoriesInDb;
