@@ -20,7 +20,7 @@ function App() {
           <Route path="/search-movies" component={SearchMovies} />
           <Route path="/content-movies" component={ContentRowDb} />
           <Route path="/last-product-in-db" component={LastProductInDb} />
-          <Route path="/genres-in-db" component={CategoriesInDb} />
+          <Route path="/categories-in-db" component={CategoriesInDb} /> 
           <Route path="/movies-chart" component={Chart} />
           <Route component={NotFound} />
         </Switch>
@@ -30,3 +30,5 @@ function App() {
 }
 
 export default App;
+
+

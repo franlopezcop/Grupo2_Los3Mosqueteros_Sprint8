@@ -18,7 +18,7 @@ function TopBar() {
           <a className="nav-link dropdown-toggle" href="/" id="alertsDropdown">
             <i className="fas fa-bell fa-fw"></i>
             {/*<!-- Counter - Alerts -->*/}
-            <span className="badge badge-danger badge-counter">3+</span>
+            <span className="badge badge-danger badge-counter">1+</span>
           </a>
         </li>
 
