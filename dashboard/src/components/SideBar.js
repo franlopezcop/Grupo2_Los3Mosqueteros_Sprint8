@@ -25,7 +25,7 @@ function SideBar() {
       <li className="nav-item active">
         <Link className="nav-link" to="/">
           <i className="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard - DH movies</span>
+          <span>Dashboard - Products</span>
         </Link>
       </li>
 
@@ -39,7 +39,7 @@ function SideBar() {
       <li className="nav-item">
         <Link className="nav-link collapsed" to="/search-movies">
           <i className="fas fa-fw fa-search"></i>
-          <span>Search Movies</span>
+          <span>Search Products</span>
         </Link>
       </li>
 
@@ -47,23 +47,23 @@ function SideBar() {
       <li className="nav-item">
         <Link className="nav-link collapsed" to="/content-movies">
           <i className="fas fa-fw fa-folder"></i>
-          <span>Content Movies</span>
+          <span>Content Product</span>
         </Link>
       </li>
 
       {/*<!-- Nav Item - Last Movie In Db -->*/}
       <li className="nav-item">
-        <Link className="nav-link" to="/last-movie-in-db">
+        <Link className="nav-link" to="/last-product-in-db">
           <i className="fas fa-fw fa-chart-area"></i>
-          <span>Last Movie In Db</span>
+          <span>Last Product In Db</span>
         </Link>
       </li>
 
       {/*<!-- Nav Item - Genres In Db -->*/}
       <li className="nav-item">
-        <Link className="nav-link" to="/genres-in-db">
+        <Link className="nav-link" to="/categories-in-db">
           <i className="fas fa-fw fa-film"></i>
-          <span>Genres In Db</span>
+          <span>Categories In Db</span>
         </Link>
       </li>
 
@@ -71,7 +71,7 @@ function SideBar() {
       <li className="nav-item">
         <Link className="nav-link" to="/movies-chart">
           <i className="fas fa-fw fa-table"></i>
-          <span>Movies Chart</span>
+          <span>Products Chart</span>
         </Link>
       </li>
 

@@ -1,3 +1,4 @@
+//ready
 import PropTypes from "prop-types";
 
 function SmallCard(props) {
@@ -31,7 +32,7 @@ function SmallCard(props) {
 SmallCard.defaultProps = {
   title: "No Title",
   color: "success",
-  cuantity: "No cuatity",
+  quantity: "No cuatity",
   icon: "fa-clipboard-list",
 };
 

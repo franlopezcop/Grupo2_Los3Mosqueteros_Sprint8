@@ -1,11 +1,11 @@
 import ContentRowCenter from "./ContentRowCenter";
-import ContentRowMovies from "./ContentRowMovies";
+import ContentRowDb from "./ContentRowDb";
 import Chart from "./Chart";
 
 function ContentRowTop() {
   return (
     <>
-      <ContentRowMovies />
+      <ContentRowDb />
       <ContentRowCenter />
       <Chart />
     </>

@@ -27,11 +27,11 @@ function Chart (){
                     <table className="table table-bordered" id="dataTable" width="100%" cellSpacing="0">
                         <thead>
                             <tr>
-                                <th>Título</th>
-                                <th>Duración</th>
-                                <th>Rating</th>
-                                <th>Género</th>
-                                <th>Premios</th>
+                                <th>Producto</th>
+                                <th>Precio</th>
+                                <th>Categoria</th>
+                                <th>X</th>
+                                <th>X</th>
                             </tr>
                         </thead>
                         <tbody>
