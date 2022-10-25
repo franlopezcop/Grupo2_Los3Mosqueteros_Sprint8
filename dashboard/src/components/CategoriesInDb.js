@@ -1,7 +1,8 @@
-// in Progress
-function CategoriesInDb() {
+import React from 'react';
+import AllCategories  from './AllCategories';
 
-  const [categories, setCategories] = React.useState([]);
+function CategoriesInDb(){
+  const [ setCategories] = React.useState([]);
   React.useEffect(() => {
       let endpoint = 'http://localhost:3000/api/products';
       fetch(endpoint)
@@ -15,35 +16,38 @@ function CategoriesInDb() {
           }
       })
   })
-  let allCategories = [
-      {categor: 'Mesas'},
+  let categories = [
+      {category: 'Mesas'},
       {category: 'Mesas Ratonas'},
       {category: 'Espejos'},
       {category: 'Escritorios'},
   ]
-
   return (
-    <div className="col-lg-6 mb-4">
-      <div className="card shadow mb-4">
-        <div className="card-header py-3">
-          <h5 className="m-0 font-weight-bold text-gray-800">
-            Categories in Data Base
-          </h5>
-        </div>
-        <div className="card-body">
-          <div className="row">
-            {allCategories.map((category, i) => (
-              <div className="col-lg-6 mb-4" key={i}>
-                <div className="card bg-dark text-white shadow">
-                  <div className="card-body">{category}</div>
-                </div>
+      <React.Fragment>
+              {/*<!-- Categories in DB -->*/}
+              <div className="col-lg-6 mb-4">						
+                  <div className="card shadow mb-4">
+                      <div className="card-header py-3">
+                          <h6 className="m-0 font-weight-bold text-gray-800">Categorías de productos</h6>
+                      </div>
+                      <div className="card-body">
+                          <div className="row">
+                              {
+                                  categories.map((categories,index)=>{
+                                      return  <AllCategories  {...categories}  key={index} />
+                                  })
+                              }
+                          </div>
+                      </div>
+                  </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+         
+      </React.Fragment>
+  )
 
+}
 export default CategoriesInDb;
+
+
+//Logramos la visual, pero no nos trae la info de nuestra BD para el conteo
+// Detecta con http://localhost:3000/categories-in-db el cambio pero no trae la info.
