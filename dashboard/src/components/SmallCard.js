@@ -1,4 +1,5 @@
-//ready
+//Status: ready
+//recibe parametros por props desde ContentRowDb
 import PropTypes from "prop-types";
 
 function SmallCard(props) {
