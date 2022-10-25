@@ -8,34 +8,37 @@ function ContentRowDb() {
 // Total Card Products
 const [products, setProducts] = React.useState([]);
 React.useEffect(() => {
-    let url = "http://localhost:3000/api/products";
+    let url = "http://localhost:3030/api/products";
     fetch(url)
     .then(response => response.json())
     .then(data => {
         if (!data.error){
-            setProducts(data.info.total);
+            setProducts(data.meta.count);
         }else{
             setProducts([]);
         }
     })
     .catch(e => console.log(e));
 })
+
 let totalProducts = {
     color: "success",
     title: "Total Productos",
     quantity: products,
     icon: "fa-clipboard-list"
 }
+
+
 ////////////////////////////////
 // Total Card Users
 const [users, setUsers] = React.useState([]);
 React.useEffect(() => {
-    let url = "http://localhost:3000/api/users";
+    let url = "http://localhost:3030/api/users";
     fetch(url)
     .then(response => response.json())
     .then(data => {
         if (!data.error){
-            setUsers(data.info.total);
+            setUsers(data.meta.count);
         }else{
             setUsers([]);
         }
@@ -48,11 +51,13 @@ let totalUsers = {
     quantity: users,
     icon: "fa-user-check"
 }
+
+
 ////////////////////////////////
 // Total Card Categories
 const [categories, setCategories] = React.useState([]);
 React.useEffect(() => {
-    let url = "http://localhost:3000/api/products";
+    let url = "http://localhost:3030/api/products";
     fetch(url)
     .then(response => response.json())
     .then(data => {
@@ -70,6 +75,7 @@ let totalCategories = {
     quantity: categories,
     icon: "fas fa-award"
 }
+
 
 
 let cardProps = [totalProducts, totalUsers, totalCategories];
