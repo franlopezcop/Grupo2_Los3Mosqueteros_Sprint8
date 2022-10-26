@@ -1,34 +1,52 @@
-import imagenFondo from "../assets/images/mandalorian.jpg";
+import React from 'react';
 
 function LastProductInDb() {
+  const [detail, setDetail] = React.useState([])
+  const [lastProduct, setLastProduct] = React.useState([])
+
+  React.useEffect (()=>{
+      // Consulta de productos
+      let url = "http://localhost:3030/api/products"
+      fetch(url)
+      .then(response => response.json())
+      .then(data =>{
+          setDetail(data.data[data.data.length - 1].detail)
+      })
+      let detailUrl = `http://${detail}` 
+      fetch(detailUrl)
+      .then(response => response.json())
+      .then(data =>{
+          setLastProduct(data.data)
+      })
+  },[detail])
+
   return (
     <div className="col-lg-6 mb-4">
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <h5 className="m-0 font-weight-bold text-gray-800">
-            Last Product in Data Base
+            Último producto
           </h5>
         </div>
         <div className="card-body">
           <div className="text-center">
+            <h3>{lastProduct.name}</h3>
             <img
               className="img-fluid px-3 px-sm-4 mt-3 mb-4"
               style={{ width: 40 + "rem" }}
-              src={imagenFondo}
+              src={lastProduct.image}
               alt=" Star Wars - Mandalorian "
             />
+            <p>{lastProduct.description}</p>
+            <div className="minor-details">
+              <p>Medidas: {lastProduct.measures}</p>
+              <p>Precio: ${lastProduct.price}</p>
+              {lastProduct.discount > 0 && <p>{lastProduct.discount}% OFF</p>}
+            </div>
           </div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores,
-            consequatur explicabo officia inventore libero veritatis iure
-            voluptate reiciendis a magnam, vitae, aperiam voluptatum non
-            corporis quae dolorem culpa citationem ratione aperiam voluptatum
-            non corporis ratione aperiam voluptatum quae dolorem culpa ratione
-            aperiam voluptatum?
-          </p>
-          <a className="btn btn-danger" target="_blank" rel="nofollow" href="/">
+          {/* <a className="btn btn-danger" target="_blank" rel="nofollow" href="/">
             View product detail
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

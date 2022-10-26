@@ -20,10 +20,10 @@ const apiProduct = {
                 url: '/api/apiProduct',
                 count: allProducts.length,
                 countByCategory: {
-                    "Mesas" : table.length,
-                    "Mesas Ratonas" : coffeeTable.length,
-                    "Espejos" : mirror.length,
-                    "Escritorios" : desk.length
+                    Mesas : table.length,
+                    MesasRatonas : coffeeTable.length,
+                    Espejos : mirror.length,
+                    Escritorios : desk.length
                 }
             }
                 
@@ -68,7 +68,7 @@ const apiProduct = {
                 discount: product.discount,
                 category: product.id_category,
                 color: product.id_color,
-                image: `http://localhost:3030/images/${product.image}` //esto ni idea
+                image: `http://localhost:3030/images/${product.Images[0].path}` //esto ni idea
             }
 
             let respuesta = {meta, data}
