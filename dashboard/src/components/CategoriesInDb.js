@@ -2,26 +2,28 @@ import React from 'react';
 import AllCategories  from './AllCategories';
 
 function CategoriesInDb(){
-  const [ setCategories] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
   React.useEffect(() => {
-      let endpoint = 'http://localhost:3000/api/products';
+      let endpoint = 'http://localhost:3030/api/products';
       fetch(endpoint)
       .then(response => response.json())
       .then(data => {
           if(!data.errors){
-              delete data.info.status;
+/*               delete data.info.status;
               delete data.info.total;
-              delete data.info.url;
-              setCategories(data.info);
+              delete data.info.url; */
+              setCategories(data.meta.countByCategory);
           }
       })
   })
-  let categories = [
-      {category: 'Mesas'},
-      {category: 'Mesas Ratonas'},
-      {category: 'Espejos'},
-      {category: 'Escritorios'},
+
+  let categoriesCount = [
+      {nombre: 'Mesas', count: categories.Mesas},
+      {nombre: 'Mesas Ratonas', count: categories.MesasRatonas},
+      {nombre: 'Espejos', count: categories.Espejos},
+      {nombre: 'Escritorios', count: categories.Escritorios},
   ]
+
   return (
       <React.Fragment>
               {/*<!-- Categories in DB -->*/}
@@ -33,8 +35,8 @@ function CategoriesInDb(){
                       <div className="card-body">
                           <div className="row">
                               {
-                                  categories.map((categories,index)=>{
-                                      return  <AllCategories  {...categories}  key={index} />
+                                  categoriesCount.map((category,index)=>{
+                                      return  <AllCategories  {...category}  key={index} />
                                   })
                               }
                           </div>
