@@ -1,4 +1,5 @@
 const db = require('../database/models');
+const sequelize = db.sequelize
 const path = require('path');
 
 //const universalModel = require('../model/universalModel'); 
