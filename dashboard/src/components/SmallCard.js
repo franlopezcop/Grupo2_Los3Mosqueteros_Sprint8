@@ -33,7 +33,7 @@ function SmallCard(props) {
 SmallCard.defaultProps = {
   title: "No Title",
   color: "success",
-  quantity: "No cuatity",
+  quantity: "No quantity",
   icon: "fa-clipboard-list",
 };
 

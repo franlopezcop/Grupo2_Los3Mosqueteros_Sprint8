@@ -26,7 +26,7 @@ React.useEffect(() => {
 let totalProducts = {
     color: "success",
     title: "Total Productos",
-    quantity: products,
+    quantity: products.count,
     icon: "fa-clipboard-list"
 }
 
@@ -50,7 +50,7 @@ React.useEffect(() => {
 let totalUsers = {
     color:  "success",
     title: "Total Usuarios",
-    quantity: users,
+    quantity: users.count,
     icon: "fa-user-check"
 }
 
@@ -64,7 +64,7 @@ React.useEffect(() => {
     .then(response => response.json())
     .then(data => {
         if (!data.error){
-            setCategories(8); //Sum of the categories
+            setCategories(); //Sum of the categories
         }else{
             setCategories([]);
         }
@@ -74,7 +74,7 @@ React.useEffect(() => {
 let totalCategories = {
     color: "success",
     title: "Total Categorías",
-    quantity: categories,
+    quantity: categories.count,
     icon: "fas fa-award"
 }
 
