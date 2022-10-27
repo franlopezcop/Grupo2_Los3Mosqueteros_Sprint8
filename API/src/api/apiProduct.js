@@ -1,10 +1,11 @@
 const db = require('../database/models');
 const path = require('path');
 
+
 //const universalModel = require('../model/universalModel'); 
 //const productModel = universalModel('products');
 
-const apiProduct = {
+const apiProduct = { 
 
     mostrarProductos: async (req,res) =>{
         try {
@@ -17,7 +18,7 @@ const apiProduct = {
             const mirror = allProducts.filter( product => product.id_category == "3" );
             let meta = {
                 status: 200,
-                url: '/api/apiProduct',
+                url: "/http://localhost:3030/api/products",
                 count: allProducts.length,
                 countByCategory: {
                     Mesas : table.length,
@@ -48,16 +49,21 @@ const apiProduct = {
         }
     },
 
-    mostrarProducto: async (req,res) =>{
+    mostrarUltimoProducto: async (req,res) =>{
+      
         try {            
             const id = +req.params.id;
             const product = await db.Products.findByPk(id,{
-                include:[db.Images, db.Colors, db.Categories]
-            });
+                include:[db.Images, db.Colors, db.Categories],
+                    order: [
+                        ["id", "DESC"],
+                 ],
+                        limit: 1
+                });
 
             let meta = {
                 status: 200,
-                url: '/api/apiProduct' 
+                url: "http://localhost:3030/api/products/lastproduct" 
             }
             let data = {
                 id: product.id,
@@ -68,7 +74,7 @@ const apiProduct = {
                 discount: product.discount,
                 category: product.id_category,
                 color: product.id_color,
-                image: `http://localhost:3030/images/${product.Images[0].path}` //esto ni idea
+                image: "http://localhost:3030/images/${product.Images[0].path}" 
             }
 
             let respuesta = {meta, data}
@@ -77,6 +83,11 @@ const apiProduct = {
             res.json({error: error.message});
         }
     },
+
 }
+
+
+
+
 
 module.exports = apiProduct
