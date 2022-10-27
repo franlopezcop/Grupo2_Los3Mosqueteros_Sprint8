@@ -1,5 +1,5 @@
 import React from 'react';
-//import AllCategories  from './AllCategories';
+import AllCategories  from './AllCategories';
 
 function CategoriesInDb(){
   const [categories, setCategories] = React.useState([]);
@@ -9,35 +9,20 @@ function CategoriesInDb(){
       .then(response => response.json())
       .then(data => {
           if(!data.errors){
-/*              delete data.info.status;
-                delete data.info.total;
-                delete data.info.url; */
+/*               delete data.info.status;
+              delete data.info.total;
+              delete data.info.url; */
               setCategories(data.meta.countByCategory);
           }
       })
-    },[])
+  })
 
-  let Mesas = {
-    name:"Mesas", 
-    count: categories.Mesas
-    }
-
-  let MesasRatonas ={
-    name: 'Mesas Ratonas', 
-    count: categories.MesasRatonas
-    }
-
-  let Espejos = {
-    name: 'Espejos', 
-    count: categories.Espejos
-    }
-
-  let Escritorios ={
-    name: 'Escritorios', 
-    count: categories.Escritorios
-    }
- 
-  let categoriesInDb = [Mesas, MesasRatonas, Espejos, Escritorios]
+  let categoriesCount = [
+      {nombre: 'Mesas', count: categories.Mesas},
+      {nombre: 'Mesas Ratonas', count: categories.MesasRatonas},
+      {nombre: 'Espejos', count: categories.Espejos},
+      {nombre: 'Escritorios', count: categories.Escritorios},
+  ]
 
   return (
       <React.Fragment>
@@ -49,13 +34,11 @@ function CategoriesInDb(){
                       </div>
                       <div className="card-body">
                           <div className="row">
-                        {categoriesInDb.map((category, i) => (
-                            <div className="col-lg-6 mb-4" key={i}>
-                                <div className="card bg-dark text-white shadow">
-                                    <div className="card-body">{category.name}: {category.count}</div>
-                                </div>
-                            </div>
-                        ))}
+                              {
+                                  categoriesCount.map((category,index)=>{
+                                      return  <AllCategories  {...category}  key={index} />
+                                  })
+                              }
                           </div>
                       </div>
                   </div>
