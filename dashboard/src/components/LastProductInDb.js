@@ -10,13 +10,15 @@ import React from 'react';
       fetch(url)
           .then(response => response.json())
           .then(data => {
-              setLastProduct(data.data)
+              //setLastProduct(data.data)
+              setLastProduct(data)
           })
       let detailUrl = `http://localhost:3030${detail}` 
         fetch(detailUrl)
           .then(response => response.json())
           .then(data =>{
-            setDetail(data.data[data.data.length - 1].detail)
+            //setDetail(data.data[data.data.length - 1].detail)
+            setDetail(data.meta.url)
       })
           
   },[detail])
