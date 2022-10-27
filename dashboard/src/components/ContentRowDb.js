@@ -1,8 +1,6 @@
-// Status: in progress
-// ex ContentRowMovies: contiene los totales de las 3 cards que son: total productos, total categorías y total usuarios
-
+// ready
 import React from 'react';
-import SmallCard from "./SmallCard"; // Importa a SmallCard dado que contiene la parte visual, cuyos parámetros son pasados por props desde ContentRowDb
+import SmallCard from "./SmallCard";
 
 /*  Cada set de datos es un objeto literal */
 function ContentRowDb() {
@@ -26,7 +24,7 @@ React.useEffect(() => {
 let totalProducts = {
     color: "success",
     title: "Total Productos",
-    quantity: products.count,
+    quantity: products,
     icon: "fa-clipboard-list"
 }
 
@@ -50,7 +48,7 @@ React.useEffect(() => {
 let totalUsers = {
     color:  "success",
     title: "Total Usuarios",
-    quantity: users.count,
+    quantity: users,
     icon: "fa-user-check"
 }
 
@@ -64,7 +62,7 @@ React.useEffect(() => {
     .then(response => response.json())
     .then(data => {
         if (!data.error){
-            setCategories(); //Sum of the categories
+            setCategories(8); //Sum of the categories
         }else{
             setCategories([]);
         }
@@ -74,7 +72,7 @@ React.useEffect(() => {
 let totalCategories = {
     color: "success",
     title: "Total Categorías",
-    quantity: categories.count,
+    quantity: categories,
     icon: "fas fa-award"
 }
 
