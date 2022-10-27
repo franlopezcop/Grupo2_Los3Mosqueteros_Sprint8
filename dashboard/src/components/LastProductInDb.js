@@ -6,13 +6,13 @@ function LastProductInDb() {
 
   React.useEffect (()=>{
     // Consulta de productos
-    let url = "http://localhost:3030/api/products"
+    let url = "http://localhost:3030/api/products";
     fetch(url)
     .then(response => response.json())
     .then(data =>{
         setDetail(data.data[data.data.length - 1].detail)
     })
-    let detailUrl = `http://${detail}` 
+    let detailUrl = `http://localhost:3030/api/products${detail}` 
     fetch(detailUrl)
     .then(response => response.json())
     .then(data =>{
