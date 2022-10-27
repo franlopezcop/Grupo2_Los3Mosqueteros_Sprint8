@@ -19,7 +19,7 @@ const apiProduct = {
             const mirror = allProducts.filter( product => product.id_category == "3" );
             let meta = {
                 status: 200,
-                url: "/http://localhost:3030/api/products",
+                url: `api/apiProducts`,
                 count: allProducts.length,
                 countByCategory: {
                     Mesas : table.length,
@@ -49,12 +49,52 @@ const apiProduct = {
             res.json({error: error.message});
         }
     },
+    
+    // api de detalle de producto
 
+    detail: (req, res) => {
+    
+        let id = req.params.id;
+
+        db.Products.findByPk(id, {
+            include: [db.Images, db.Colors, db.Categories],
+        })
+            .then(product => {
+
+                let productUpdated = {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    description: product.description,
+                    measures: product.measures,
+                    discount: product.discount,
+                    category: product.id_category,
+                    color: product.id_color,
+                    image: `http://localhost:3030/images/${product.Images[0].path}`
+                }
+
+                let response = {
+                    meta: {
+                        status: 200,
+                        length: product.length,
+                        url: "/api/products/:id"
+                    },
+                    data: productUpdated
+                }
+                res.json(response);
+            })
+            .catch(err => {
+                res.send(err)
+            })
+    
+    },
+
+ // Ultimo producto
     mostrarUltimoProducto: async (req,res) =>{
       
         try {            
             const id = +req.params.id;
-            const product = await db.Products.findByPk(id,{
+            const product = await db.Products.findAll(id,{
                 include:[db.Images, db.Colors, db.Categories],
                     order: [
                         ["id", "DESC"],
@@ -64,7 +104,7 @@ const apiProduct = {
 
             let meta = {
                 status: 200,
-                url: "http://localhost:3030/api/products/lastproduct" 
+                url: `http://localhost:3030/api/products/lastproduct`
             }
             let data = {
                 id: product.id,
@@ -75,7 +115,7 @@ const apiProduct = {
                 discount: product.discount,
                 category: product.id_category,
                 color: product.id_color,
-                image: "http://localhost:3030/images/${product.Images[0].path}" 
+                image: `http://localhost:3030/images/${product.Images[0].path}`
             }
 
             let respuesta = {meta, data}
