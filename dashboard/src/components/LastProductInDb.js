@@ -3,15 +3,18 @@ import React from 'react';
  function LastProductInDb() {
   const [detail, setDetail] = React.useState([])
   const [lastProduct, setLastProduct] = React.useState({})
+  const [ lastProductImage, setLastProductImage ] = React.useState("");
+  
 
   React.useEffect(() => {
     // Consulta de productos
       let url = 'http://localhost:3030/api/products'
       fetch(url)
           .then(response => response.json())
-          .then(data => {
-              //setLastProduct(data.data)
-              setLastProduct(data)
+          .then(product => {
+              setLastProduct(product.data)
+              setLastProductImage(product.data.image)
+              
           })
       let detailUrl = `http://localhost:3030${detail}` 
         fetch(detailUrl)
@@ -37,7 +40,7 @@ import React from 'react';
             <img
               className="img-fluid px-3 px-sm-4 mt-3 mb-4"
               style={{ width: 40 + "rem" }}
-              src={lastProduct.image}
+              src={lastProductImage}
               alt=" Star Wars - Mandalorian "
             />
             <p>{lastProduct.description}</p>
