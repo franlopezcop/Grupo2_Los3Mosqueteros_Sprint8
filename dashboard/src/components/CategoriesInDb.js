@@ -1,5 +1,5 @@
 import React from 'react';
-import AllCategories  from './AllCategories';
+//import AllCategories  from './AllCategories';
 
 function CategoriesInDb(){
   const [categories, setCategories] = React.useState([]);
@@ -15,14 +15,29 @@ function CategoriesInDb(){
               setCategories(data.meta.countByCategory);
           }
       })
-  })
+    },[])
 
-  let categoriesCount = [
-      {nombre: 'Mesas', count: categories.Mesas},
-      {nombre: 'Mesas Ratonas', count: categories.MesasRatonas},
-      {nombre: 'Espejos', count: categories.Espejos},
-      {nombre: 'Escritorios', count: categories.Escritorios},
-  ]
+  let Mesas = {
+    name:"Mesas", 
+    count: categories.Mesas
+    }
+
+  let MesasRatonas ={
+    name: 'Mesas Ratonas', 
+    count: categories.MesasRatonas
+    }
+
+  let Espejos = {
+    name: 'Espejos', 
+    count: categories.Espejos
+    }
+
+  let Escritorios ={
+    name: 'Escritorios', 
+    count: categories.Escritorios
+    }
+ 
+  let categoriesInDb = [Mesas, MesasRatonas, Espejos, Escritorios]
 
   return (
       <React.Fragment>
@@ -34,11 +49,13 @@ function CategoriesInDb(){
                       </div>
                       <div className="card-body">
                           <div className="row">
-                              {
-                                  categoriesCount.map((category,index)=>{
-                                      return  <AllCategories  {...category}  key={index} />
-                                  })
-                              }
+                        {categoriesInDb.map((category, i) => (
+                            <div className="col-lg-6 mb-4" key={i}>
+                                <div className="card bg-dark text-white shadow">
+                                    <div className="card-body">{category.name}: {category.count}</div>
+                                </div>
+                            </div>
+                        ))}
                           </div>
                       </div>
                   </div>

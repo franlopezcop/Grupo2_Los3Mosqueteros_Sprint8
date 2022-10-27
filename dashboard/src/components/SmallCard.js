@@ -1,4 +1,5 @@
-//ready
+//Status: ready
+//recibe parametros por props desde ContentRowDb
 import PropTypes from "prop-types";
 
 function SmallCard(props) {
@@ -32,7 +33,7 @@ function SmallCard(props) {
 SmallCard.defaultProps = {
   title: "No Title",
   color: "success",
-  quantity: "No cuatity",
+  quantity: "No quantity",
   icon: "fa-clipboard-list",
 };
 
