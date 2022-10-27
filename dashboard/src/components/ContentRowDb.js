@@ -88,6 +88,7 @@ return (
         {
             cardProps.map((product,index)=>{
                 return <SmallCard  {...product}  key= {index}/>
+              // return <cardProps  {...product}  key= {index}/>
             })
         }      
     </div>
