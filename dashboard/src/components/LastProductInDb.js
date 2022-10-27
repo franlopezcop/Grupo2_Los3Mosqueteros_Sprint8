@@ -1,23 +1,24 @@
 import React from 'react';
 
-function LastProductInDb() {
+ function LastProductInDb() {
   const [detail, setDetail] = React.useState([])
-  const [lastProduct, setLastProduct] = React.useState([])
+  const [lastProduct, setLastProduct] = React.useState({})
 
-  React.useEffect (()=>{
-      // Consulta de productos
-      let url = "http://localhost:3030/api/products"
+  React.useEffect(() => {
+    // Consulta de productos
+      let url = 'http://localhost:3030/api/products'
       fetch(url)
-      .then(response => response.json())
-      .then(data =>{
-          setDetail(data.data[data.data.length - 1].detail)
+          .then(response => response.json())
+          .then(data => {
+              setLastProduct(data.data)
+          })
+      let detailUrl = `http://localhost:3030${detail}` 
+        fetch(detailUrl)
+          .then(response => response.json())
+          .then(data =>{
+            setDetail(data.data[data.data.length - 1].detail)
       })
-      let detailUrl = `http://${detail}` 
-      fetch(detailUrl)
-      .then(response => response.json())
-      .then(data =>{
-          setLastProduct(data.data)
-      })
+          
   },[detail])
 
   return (
@@ -25,7 +26,7 @@ function LastProductInDb() {
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <h5 className="m-0 font-weight-bold text-gray-800">
-            Último producto
+            Último producto en base de datos.
           </h5>
         </div>
         <div className="card-body">

@@ -10,6 +10,7 @@ import CategoriesInDb from "./CategoriesInDb";
 import Chart from "./Chart";
 import NotFound from "./NotFound";
 
+
 function App() {
   return (
     <div id="wrapper">

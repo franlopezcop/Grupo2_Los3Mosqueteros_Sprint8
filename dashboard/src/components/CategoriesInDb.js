@@ -9,9 +9,9 @@ function CategoriesInDb(){
       .then(response => response.json())
       .then(data => {
           if(!data.errors){
-/*               delete data.info.status;
-              delete data.info.total;
-              delete data.info.url; */
+/*              delete data.info.status;
+                delete data.info.total;
+                delete data.info.url; */
               setCategories(data.meta.countByCategory);
           }
       })
