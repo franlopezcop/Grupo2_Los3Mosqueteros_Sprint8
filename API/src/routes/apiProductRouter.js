@@ -5,6 +5,8 @@ const apiProduct = require("../api/apiProduct")
 
 
 router.get("/", apiProduct.mostrarProductos)
-router.get("/:id", apiProduct.mostrarProducto)
+router.get("/:id", apiProduct.mostrarProducto) 
+
+
 
 module.exports = router

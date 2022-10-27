@@ -1,36 +1,31 @@
 import React from 'react';
 
- function LastProductInDb() {
+function LastProductInDb() {
   const [detail, setDetail] = React.useState([])
-  const [lastProduct, setLastProduct] = React.useState({})
-  const [ lastProductImage, setLastProductImage ] = React.useState("");
-  
+  const [lastProduct, setLastProduct] = React.useState([])
 
-  React.useEffect(() => {
+  React.useEffect (()=>{
     // Consulta de productos
-      let url = 'http://localhost:3030/api/products'
-      fetch(url)
-          .then(response => response.json())
-          .then(product => {
-              setLastProduct(product.data)
-              setLastProductImage(product.data.image)
-              
-          })
-      let detailUrl = `http://localhost:3030${detail}` 
-        fetch(detailUrl)
-          .then(response => response.json())
-          .then(data =>{
-            setDetail(data.data[data.data.length - 1].detail)
-      })
-          
-  },[detail])
+    let url = "http://localhost:3030/api/products"
+    fetch(url)
+    .then(response => response.json())
+    .then(data =>{
+        setDetail(data.data[data.data.length - 1].detail)
+    })
+    let detailUrl = `http://${detail}` 
+    fetch(detailUrl)
+    .then(response => response.json())
+    .then(data =>{
+        setLastProduct(data.data)
+    })
+},[detail])
 
   return (
     <div className="col-lg-6 mb-4">
       <div className="card shadow mb-4">
         <div className="card-header py-3">
           <h5 className="m-0 font-weight-bold text-gray-800">
-            Último producto en base de datos.
+            Último producto
           </h5>
         </div>
         <div className="card-body">
@@ -39,7 +34,7 @@ import React from 'react';
             <img
               className="img-fluid px-3 px-sm-4 mt-3 mb-4"
               style={{ width: 40 + "rem" }}
-              src={lastProductImage}
+              src={lastProduct.image}
               alt=" Star Wars - Mandalorian "
             />
             <p>{lastProduct.description}</p>
