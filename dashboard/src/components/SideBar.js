@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import image from "../assets/images/logo-DH.png";
+import image from "../assets/images/logo-BF.png";
 
 function SideBar() {
   return (
@@ -14,7 +14,7 @@ function SideBar() {
         href="/"
       >
         <div className="sidebar-brand-icon">
-          <img className="w-100" src={image} alt="Digital House" />
+          <img className="w-100" src={image} alt="Blackfe" />
         </div>
       </a>
 
@@ -37,7 +37,7 @@ function SideBar() {
 
       {/*<!-- Nav Item - Search Movies -->*/}
       <li className="nav-item">
-        <Link className="nav-link collapsed" to="/search-movies">
+        <Link className="nav-link collapsed" to="/search-products">
           <i className="fas fa-fw fa-search"></i>
           <span>Search Products</span>
         </Link>
@@ -45,7 +45,7 @@ function SideBar() {
 
       {/*<!-- Nav Item - Content Movies -->*/}
       <li className="nav-item">
-        <Link className="nav-link collapsed" to="/content-movies">
+        <Link className="nav-link collapsed" to="/content-app">
           <i className="fas fa-fw fa-folder"></i>
           <span>Content Product</span>
         </Link>
@@ -69,7 +69,7 @@ function SideBar() {
 
       {/*<!-- Nav Item - Movies Chart -->*/}
       <li className="nav-item">
-        <Link className="nav-link" to="/movies-chart">
+        <Link className="nav-link" to="/products-chart">
           <i className="fas fa-fw fa-table"></i>
           <span>Products Chart</span>
         </Link>

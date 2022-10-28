@@ -1,4 +1,4 @@
-import foto from "../assets/images/jordan-walke.png";
+import foto from "../assets/images/logo.jpg";
 
 function TopBar() {
   return (

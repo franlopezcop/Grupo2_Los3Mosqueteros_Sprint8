@@ -1,24 +1,33 @@
 import React from 'react';
 
 function LastProductInDb() {
-  const [detail, setDetail] = React.useState([])
+  // const [detail, setDetail] = React.useState()
   const [lastProduct, setLastProduct] = React.useState([])
 
   React.useEffect (()=>{
-    // Consulta de productos
-    let url = "http://localhost:3030/api/products";
-    fetch(url)
-    .then(response => response.json())
-    .then(data =>{
-        setDetail(data.data[data.data.length - 1].detail)
-    })
-    let detailUrl = `http://localhost:3030/api/products${detail}` 
-    fetch(detailUrl)
-    .then(response => response.json())
-    .then(data =>{
-        setLastProduct(data.data)
-    })
-},[detail])
+      //Consulta de productos
+      let lastProductUrl = "http://localhost:3030/api/products/last"
+        fetch (lastProductUrl)
+        .then(response => response.json())
+        .then(data =>{
+            setLastProduct(data.data)
+        })
+      
+      // let url = "http://localhost:3030/api/products"
+      //   fetch(url)
+      //   .then(response => response.json())
+      //   .then(data =>{
+      //     setDetail(data.data[data.data.length - 1].detail)
+      //   })
+      //   if(detail){
+      // let detailUrl = `http://${detail}` 
+      // fetch(detailUrl)
+      // .then(response => response.json())
+      // .then(data =>{
+      //     setLastProduct(data.data)
+      // })}
+  },[])
+
 
   return (
     <div className="col-lg-6 mb-4">
@@ -35,7 +44,7 @@ function LastProductInDb() {
               className="img-fluid px-3 px-sm-4 mt-3 mb-4"
               style={{ width: 40 + "rem" }}
               src={lastProduct.image}
-              alt=" Star Wars - Mandalorian "
+              alt="Last Product"
             />
             <p>{lastProduct.description}</p>
             <div className="minor-details">
