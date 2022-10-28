@@ -18,11 +18,11 @@ function App() {
       <EmptyWrapper>
         <Switch>
           <Route exact path="/" component={ContentWrapper} />
-          <Route path="/search-movies" component={SearchMovies} />
-          <Route path="/content-movies" component={ContentRowDb} />
+          <Route path="/search-products" component={SearchMovies} />
+          <Route path="/content-app" component={ContentRowDb} />
           <Route path="/last-product-in-db" component={LastProductInDb} />
           <Route path="/categories-in-db" component={CategoriesInDb} /> 
-          <Route path="/movies-chart" component={Chart} />
+          <Route path="/products-chart" component={Chart} />
           <Route component={NotFound} />
         </Switch>
       </EmptyWrapper>
