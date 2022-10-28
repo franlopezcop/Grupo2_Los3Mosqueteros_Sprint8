@@ -13,7 +13,7 @@ function Chart (){
         .then(data =>{
             setProducts(data.data)
         })
-    })
+    },[])
 
     return (
         /* <!-- DataTales Example --> */

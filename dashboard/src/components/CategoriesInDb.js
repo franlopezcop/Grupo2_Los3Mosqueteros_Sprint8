@@ -15,7 +15,7 @@ function CategoriesInDb(){
               setCategories(data.meta.countByCategory);
           }
       })
-  })
+  },[])
 
   let categoriesCount = [
       {nombre: 'Mesas', count: categories.Mesas},

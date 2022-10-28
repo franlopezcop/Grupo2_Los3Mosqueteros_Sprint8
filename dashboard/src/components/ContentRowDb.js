@@ -21,7 +21,7 @@ React.useEffect(() => {
         }
     })
     .catch(e => console.log(e));
-})
+},[])
 
 let totalProducts = {
     color: "success",
@@ -45,7 +45,7 @@ React.useEffect(() => {
         }
     })
     .catch(e => console.log(e));
-})
+},[])
 let totalUsers = {
     color:  "success",
     title: "Total Usuarios",
@@ -69,7 +69,7 @@ React.useEffect(() => {
         }
     })
     .catch(e => console.log(e));
-})
+},[])
 let totalCategories = {
     color: "success",
     title: "Total Categorías",
