@@ -50,6 +50,31 @@ const apiProduct = {
         }
     },
 
+    lastProduct: async (req, res) =>{
+        try {
+            const lastProduct = await db.Products.findAll({
+                include: [db.Images],
+                order: [['id', 'DESC']],
+                limit: 1
+            }) 
+            let product = [...lastProduct][0]
+            product = product.toJSON()
+                product.Images = `/images/products/${product.Images[0].path}`;
+
+                let respuesta = {
+                    meta: {
+                        status: 200,
+                        url: `/api/productos/ultimo`,
+                    },
+                    data: product
+                }
+                res.status(200).json(respuesta);
+        } catch (error) {
+            res.json({error: error.message});           
+        }
+    },
+
+
     mostrarProducto: async (req,res) =>{
         try {            
             const id = +req.params.id;
@@ -59,7 +84,7 @@ const apiProduct = {
 
             let meta = {
                 status: 200,
-                url: '/api/apiProduct' 
+                url: `/api/productos/${id}` 
             }
             let data = {
                 id: product.id,
