@@ -79,6 +79,11 @@ const apiProduct = {
             res.json({error: error.message});
         }
     },
- }
+
+
+
+}
+ 
+ 
 
 module.exports = apiProduct

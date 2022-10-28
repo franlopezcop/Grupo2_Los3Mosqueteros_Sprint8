@@ -12,7 +12,7 @@ function LastProductInDb() {
     .then(data =>{
         setDetail(data.data[data.data.length - 1].detail)
     })
-    let detailUrl = `http://localhost:3030/api/products${detail}` 
+    let detailUrl = `//localhost:3030/api/products${detail}` 
     fetch(detailUrl)
     .then(response => response.json())
     .then(data =>{

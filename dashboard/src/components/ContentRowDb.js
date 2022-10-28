@@ -57,7 +57,7 @@ let totalUsers = {
 // Total Card Categories
 const [categories, setCategories] = React.useState([]);
 React.useEffect(() => {
-    let url = "http://localhost:3030/api/products";
+    let url = "//localhost:3030/api/products";
     fetch(url)
     .then(response => response.json())
     .then(data => {
