@@ -70,7 +70,7 @@ const apiProduct = {
                 discount: product.discount,
                 category: product.id_category,
                 color: product.id_color,
-                image: `http://localhost:3030/images/products/${product.Images[0].path}` //esto ni idea
+                image: `http://localhost:3030/images/products/${product.Images[0].path}` 
             }
 
             let respuesta = {meta, data}
