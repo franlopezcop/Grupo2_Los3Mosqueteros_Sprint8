@@ -1,26 +1,32 @@
 import React from 'react';
 
 function LastProductInDb() {
-  const [detail, setDetail] = React.useState()
+  // const [detail, setDetail] = React.useState()
   const [lastProduct, setLastProduct] = React.useState([])
 
-  // se ejecutará ni bien se monta el componente, antes deberiamos crear la condicion
   React.useEffect (()=>{
-      // Consulta de productos
-      let url = "http://localhost:3030/api/products"
-        fetch(url)
+      //Consulta de productos
+      let lastProductUrl = "http://localhost:3030/api/products/last"
+        fetch (lastProductUrl)
         .then(response => response.json())
         .then(data =>{
-          setDetail(data.data[data.data.length - 1].detail)
+            setLastProduct(data.data)
         })
-        if(detail){
-      let detailUrl = `http://${detail}` 
-      fetch(detailUrl)
-      .then(response => response.json())
-      .then(data =>{
-          setLastProduct(data.data)
-      })}
-  },[detail])
+      
+      // let url = "http://localhost:3030/api/products"
+      //   fetch(url)
+      //   .then(response => response.json())
+      //   .then(data =>{
+      //     setDetail(data.data[data.data.length - 1].detail)
+      //   })
+      //   if(detail){
+      // let detailUrl = `http://${detail}` 
+      // fetch(detailUrl)
+      // .then(response => response.json())
+      // .then(data =>{
+      //     setLastProduct(data.data)
+      // })}
+  },[])
 
 
   return (
@@ -38,7 +44,7 @@ function LastProductInDb() {
               className="img-fluid px-3 px-sm-4 mt-3 mb-4"
               style={{ width: 40 + "rem" }}
               src={lastProduct.image}
-              alt="Last Product Image"
+              alt="Last Product"
             />
             <p>{lastProduct.description}</p>
             <div className="minor-details">

@@ -13,7 +13,10 @@ app.use(express.json()); // para poder trabajar con información que llegue en f
 
 
 const apiMainRouter = require("./routes/apiMainRouter.js")
-app.use("/" ,apiMainRouter)
+// app.use("/" ,apiMainRouter)
+app.get("/", (req, res) =>{
+    res.send('hola')
+})
 
 const apiUserRouter = require("./routes/apiUserRouter.js")
 app.use("/api/users", apiUserRouter)
