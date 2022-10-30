@@ -2,21 +2,26 @@ import { useEffect, useRef, useState} from "react";
 import noPoster from "../assets/images/no-poster.png";
 
 function SearchMovies() {
-  // Credenciales de API
-  const apiKey = "a93897b9"; // Ingresa la API key que llego a tu mail 
-
-  // keyword será la palabra por la que queremos buscar la / las películas
-  // const keyword = "comedy";
-
-  // Array de Peliculas hardcodeado que reemplazaremos por lo que devuelva la OMDb API
-  const [movies, setMovies] = useState([]);
-  const [keyword, setKeyword] = useState("comedy");
+  
+  const [products, setProducts] = useState([]);
+  const [keyword, setKeyword] = useState('Debe ingresar una palabra');
 
   useEffect(() => {
-    let url = `http://www.omdbapi.com/?s=${keyword}&apikey=${apiKey}`
+    let url
+    if (keyword === "Debe ingresar una palabra") {
+      url = 'http://localhost:3030/api/products';
+    } else {
+      url = `http://localhost:3030/api/products?search=${keyword}`
+    }
     fetch(url)
       .then( response => response.json())
-      .then( data => setMovies(data.Search))
+      .then( data => {
+        if ( Array.isArray(data.data)) {
+          setProducts(data.data)
+        } else {
+          setProducts([])
+        }
+      })
 
   }, [keyword])
 
@@ -44,15 +49,14 @@ function SearchMovies() {
 
   return (
     <div className="container-fluid">
-      {/* Si hay una api key se mostrará el siguiente contenido */}
-      {apiKey !== "" ? (
+
         <>
           <div className="row my-4">
             <div className="col-12 col-md-6">
               {/* Buscador de Películas */}
               <form onSubmit={handleSubmit}>  {/* A esta etiqueta form debemos agregar el onSubmit con una funcion dentro */}
                 <div className="form-group">
-                  <label htmlFor="">Buscar por título:</label>
+                  <label htmlFor="">Buscar por nombre:</label>
                   <input ref={search} type="text" className="form-control" />
                 </div>
                 <button className="btn btn-info">Search</button>
@@ -61,18 +65,18 @@ function SearchMovies() {
           </div>
           <div className="row">
             <div className="col-12">
-              <h2>Películas para la palabra: {keyword}</h2>
+              <h2>Productos para la palabra: {keyword}</h2>
             </div>
             {/* Listado de Películas */}
             {/* Si hay películas mostrar el listado */}
-            {movies.length > 0 ? (
-              movies.map((movie, i) => {
+            {products.length > 0 ? (
+              products.map((product, i) => {
                 return (
                   <div className="col-sm-6 col-md-3 my-4" key={i}>
                     <div className="card shadow mb-4">
                       <div className="card-header py-3">
                         <h5 className="text-center m-0 font-weight-bold text-gray-800">
-                          {movie.Title}
+                          {product.name}
                         </h5>
                       </div>
                       <div className="card-body">
@@ -81,11 +85,11 @@ function SearchMovies() {
                             className="img-fluid px-3 px-sm-4 mt-3 mb-4"
                             // Si existe movie.Poster y si es distinto "N/A", mostramos movie.Poster y si no mostramos la imagen local noPoster importada de los assets
                             src={
-                              movie.Poster && movie.Poster !== "N/A"
-                                ? movie.Poster
+                              product.image
+                                ? product.image
                                 : noPoster
                             }
-                            alt={movie.Title}
+                            alt={product.name}
                             style={{
                               width: "90%",
                               height: "400px",
@@ -93,7 +97,10 @@ function SearchMovies() {
                             }}
                           />
                         </div>
-                        <p className="text-center">{movie.Year}</p>
+                        <div>
+                            <p className="text-center">Precio: {product.price}</p>
+                            <p className="text-center">Descuento: {product.discount} %</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -102,17 +109,11 @@ function SearchMovies() {
             ) : (
               // Si no hay películas deberemos mostrar el siguiente mensaje
               <div className="alert alert-warning text-center">
-                No se encontraron películas
+                No se encontraron productos
               </div>
             )}
           </div>
         </>
-      ) : (
-        // Si no hay una api key se mostrará este mensaje
-        <div className="alert alert-danger text-center my-4 fs-2">
-          Eyyyy... ¿PUSISTE TU APIKEY?
-        </div>
-      )}
     </div>
   );
 }
